@@ -1,0 +1,1 @@
+{"port":"1000","oss":"qiniu","qiniu":{"accessKey":"46AdDRvbBAV6rK9r88hpVuNkD5DAy3KZoZTjaso3","secretKey":"MLw2mSYh3T8D6TnMcjoxhRBmidp8B530TXuM71HF","bucket":"loading","baseurl":"http://loading.awesomes.cn"},"ignore":"*.log, *.log.json, *.config, *.config.json, .gitignore, README.md, .git*, favoricon.psd"}
