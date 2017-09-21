@@ -1,22 +1,47 @@
 <template>
-  <div class="load-item">
+  <div v-bind:class="'load-item ' + (isfullscreen ? 'fullscreen' : '') ">
+    <a href="javascript:void(0)" class="close-full-btn" @click="switchFullscreen(false)" v-show="isfullscreen">
+      <icon name="close"></icon>
+    </a>
     <div class="load-inner" v-html="formatHtml(dataitem)"></div>
     <div class="load-bar">
-      <a href="javascript:void(0)" @click="showconf = !showconf">
-        <icon name="config"></icon>
+
+      <a href="javascript:void(0)" class="pull-right">
+        <svg class="icon">
+          <use xlink:href="static/icon.svg#code-download"></use>
+        </svg>
+      </a>
+      <a href="javascript:void(0)" class="pull-right" @click="viewcode">
+        <svg class="icon">
+          <use xlink:href="static/icon.svg#code-working"></use>
+        </svg>
+      </a>
+
+      <a href="javascript:void(0)" @click="switchFullscreen(true)">
+        <svg class="icon">
+          <use xlink:href="static/icon.svg#fullscreen"></use>
+        </svg>
       </a>
 
       <a href="javascript:void(0)" @click="showconf = !showconf">
-        <icon name="fullscreen"></icon>
+        <svg class="icon">
+          <use xlink:href="static/icon.svg#cog"></use>
+        </svg>
       </a>
 
-      <a href="javascript:void(0)" class="pull-right">
-        <icon name="download"></icon>
-      </a>
-      <a href="javascript:void(0)" class="pull-right">
-        <icon name="code"></icon>
-      </a>
       <div class="load-config-panel" v-if="dataitem.options && showconf">
+        <div>
+          <a href="javascript:void(0)" @click="resetParam">
+            <svg class="icon">
+              <use xlink:href="static/icon.svg#reset"></use>
+            </svg>
+          </a>
+          <a href="javascript:void(0)" @click="resetParam">
+            <svg class="icon">
+              <use xlink:href="static/icon.svg#arrow-up"></use>
+            </svg>
+          </a>
+        </div>
         <template v-for="option in dataitem.options">
           <component v-bind:is="'ui-' + option.ui" v-model="option.val" :params="option.params" :name="option.name"></component>
         </template>
@@ -28,11 +53,15 @@
 <script>
   import UiColor from './ui-color'
   import UiSlider from './ui-slider'
+  import $ from 'jquery'
+  let originalParams = []
+
   export default {
-    props: ['dataitem'],
+    props: ['dataitem', 'showCode'],
     data () {
       return {
-        showconf: false
+        showconf: false,
+        isfullscreen: false
       }
     },
     components: {
@@ -42,9 +71,6 @@
     methods: {
       formatHtml: function (code) {
         let css = code.css
-        // (code.options || []).forEach(item => {
-        //   css = css.replace(new RegExp(`\\$<${item.key}>`, 'g'), item.val)
-        // })
         let optionval = (code.options || []).reduce((result, item) => {
           result[item.key] = item.val
           return result
@@ -53,12 +79,34 @@
           let con = item.substring(2, item.length - 1).replace(/@([a-zA-Z]+)/g, `optionval['$1']`)
           return eval(con)
         })
-        console.log(css)
+        code.result.css = css
         return `<div class="loading-box"><style style="text/css">${css}</style>${code.html}</div>`
       },
+
       updateColor (item, value) {
-        console.log(item, value)
         item.options[1].val = value
+      },
+
+      // 重置参数
+      resetParam () {
+        this.dataitem.options.forEach(item => {
+          item.val = item.oldval
+        })
+      },
+
+      // 切换全屏
+      switchFullscreen (isfull) {
+        this.isfullscreen = isfull
+        if (isfull) {
+          $('body').addClass('hidescroll')
+        } else {
+          $('body').removeClass('hidescroll')
+        }
+      },
+
+      // 查看代码
+      viewcode () {
+        this.showCode(this.dataitem)
       }
     }
   }
@@ -75,6 +123,22 @@
     display: flex;
     flex-direction: column;
     position: relative;
+  }
+
+  .load-item.fullscreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: -20px;
+    left: -20px;
+    z-index: 500;
+  }
+
+  .close-full-btn {
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    top: 10px;
   }
 
   .load-config-panel {
@@ -105,6 +169,7 @@
     padding: 0 10px;
     position: relative;
     box-sizing: border-box;
+    justify-content: space-around;
   }
 
   .load-bar > a {

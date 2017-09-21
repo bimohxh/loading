@@ -14,6 +14,8 @@
     "deploy": "npm run build && ../webon/bin/webon.js deploy ./dist -f -r dist/"
   },
   "dependencies": {
+    "jquery": "^3.2.1",
+    "prismjs": "^1.8.1",
     "vue": "^2.4.2",
     "vue-color": "^2.4.0",
     "vue-slider-component": "^2.4.1"

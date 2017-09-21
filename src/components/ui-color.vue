@@ -33,6 +33,9 @@
       changeColor () {
         this.$emit('input', this.color.hex)
       }
+    },
+    mounted () {
+      window.hidels.push(this)
     }
   }
 </script>

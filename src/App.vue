@@ -1,22 +1,73 @@
 <template>
   <div id="app" class="container">
     <div class="load-outer">
-      <loaditem v-for="item in codes" :dataitem="item"></loaditem>
+      <loaditem v-for="item in codes" :dataitem="item" :showCode="showPanel"></loaditem>
+    </div>
+
+    <div class="code-panel" v-show="codepanel.show">
+      <a href="javascript:void(0)" class="close-code-btn" @click="codepanel.show= false" >
+        <icon name="close"></icon>
+      </a>
+      <div class="inner">
+        <h4>HTML</h4>
+        <div class="area-html">
+          <textarea >{{codepanel.code.html}}</textarea>
+        </div>
+        <h4>CSS</h4>
+        <div class="area-css">
+          <textarea>{{codepanel.code.css}}</textarea>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
   import Loaditem from './components/loaditem'
+  let loadings = require('./loadings/loading')
+  // var Prism = require('prismjs')
+  // var beautify = require('js-beautify').html
+  require('prismjs/themes/prism.css')
+
+  loadings.forEach(load => {
+    load.options.forEach(item => {
+      item.oldval = item.val
+    })
+    load.result = {
+      css: load.css
+    }
+  })
   export default {
     name: 'app',
     data () {
       return {
-        codes: require('./loadings/loading')
+        codes: loadings,
+        codepanel: {
+          show: false,
+          code: {
+            html: '',
+            css: ''
+          }
+        }
       }
     },
     components: {
       Loaditem
+    },
+    methods: {
+      showPanel: function (code) {
+        this.codepanel.show = true
+        this.codepanel.code.html = code.html
+        this.codepanel.code.css = code.result.css
+      }
+    },
+    mounted () {
+      window.hidels = []
+      document.body.onclick = () => {
+        window.hidels.forEach(item => {
+          item.ishow = false
+        })
+      }
     }
   }
 </script>
@@ -29,6 +80,12 @@
     font-size: 14px;
     background-color: #f7f8fa
   }
+
+  .hidescroll {
+    height: 0;
+    overflow: hidden
+  }
+
   * {
     font-family: Menlo, Monaco, Consolas, "Helvetica Neue", Helvetica, "Courier New", 微软雅黑, monospace, Arial, sans-serif, 黑体;
   }
@@ -84,6 +141,7 @@
     display: flex;
     flex-wrap:  wrap;
     padding: 50px 0;
+    justify-content: space-between;
   }
 
   .form-item {
@@ -113,5 +171,51 @@
   .svg-icon {
     width: 20px;
     height: 20px;
+  }
+
+  .code-panel {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 400px;
+    background-color: #FFF;
+    box-shadow: 1px 1px 15px #EEE;
+    border-left: #ebebeb 1px solid;
+    opacity: 0.9
+  }
+
+  .code-panel .inner {
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .code-panel textarea {
+    resize: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    line-height: 22px;
+    letter-spacing: 1px;
+    padding: 0 10px;
+  }
+
+  .code-panel .area-html {
+    height: 150px;
+    position: relative
+  }
+
+  .code-panel .area-css {
+    flex-grow: 1;
+    position: relative
+  }
+
+  .code-panel .close-code-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px; 
   }
 </style>
