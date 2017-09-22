@@ -1,13 +1,13 @@
 <template>
-  <div id="app" class="container">
-    <div class="side-left">
-      
+  <div id="app" >
+    <div class="banner">
+      <h1>Awesome Loading</h1>
     </div>
-    <div class="side-middle">
-      <div class="banner">
-        <h1>Awesome Loading</h1>
-        <p>可定制的 CSS 加载动画</p>
-      </div>
+    <div class="nav">
+      可定制的 CSS 加载动画
+    </div>
+    <div class="container">
+      
       <div class="load-outer">
         <loaditem v-for="item in paginationData()" :dataitem="item" :showCode="showPanel"></loaditem>
       </div>
@@ -46,9 +46,18 @@
       </transition>
     </div>
 
-    <div class="side-right">
-     
-    </div>
+    <footer>
+      <a href="https://github.com/awesomes-cn/loading" target="_blank">
+        <svg class="icon" style="width: 50px; height: 50px;">
+          <use xlink:href="static/icon.svg#github"></use>
+        </svg>
+      </a>
+      <div>
+        <a href="https://www.awesomes.cn/" target="_blank">
+        Awesomes.cn
+        </a> 旗下网站
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -153,21 +162,8 @@
   }
 
   .container {
-    margin: 50px 0;
-    display: flex;
-  }
-
-  .side-middle {
+    margin: 50px auto;
     max-width: 1000px;
-  }
-
-  .side-right, .side-left {
-    flex-grow: 1;
-    position: relative
-  }
-
-  .side-left {
-    text-align: right
   }
 
   .pagination {
@@ -320,6 +316,24 @@
   }
 
   .banner {
-    text-align: center
+    text-align: center;
+    background-color: #f9d732;
+    padding: 50px;
+  }
+
+  .banner h1 {
+    margin: 0;
+  }
+  .nav {
+    background-color: #000;
+    padding: 20px;
+    text-align: center;
+    color: #FFF;
+  }
+
+  footer {
+    text-align: center;
+    padding: 50px;
+    color: #999
   }
 </style>
