@@ -1,10 +1,10 @@
 module.exports = {
   html: `
-    <div class="ball-scale-multiple">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+<div class="ball-scale-multiple">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
   `,
   options: [
     {
@@ -35,75 +35,75 @@ module.exports = {
     }
   ],
   css: `
-    .ball-scale-multiple {
-      position: relative;
-      transform: scale($<@scale>) translateY(-30px);
-    }
-    
-    .ball-scale-multiple > div:nth-child(2) {
-      -webkit-animation-delay: -0.4s;
-      animation-delay: -0.4s;
-    }
-    
-    .ball-scale-multiple > div:nth-child(3) {
-      -webkit-animation-delay: -0.2s;
-      animation-delay: -0.2s;
-    }
-    
-    .ball-scale-multiple > div {
-      background-color: $<@color>;
-      width: 15px;
-      height: 15px;
-      border-radius: 100%;
-      margin: 2px;
-      -webkit-animation-fill-mode: both;
-      animation-fill-mode: both;
-      position: absolute;
-      left: -30px;
-      top: 0px;
-      opacity: 0;
-      margin: 0;
-      width: 60px;
-      height: 60px;
-      -webkit-animation: ball-scale-multiple $<@speed>s 0s linear infinite;
-      animation: ball-scale-multiple $<@speed>s 0s linear infinite;
-    }
+.ball-scale-multiple {
+  position: relative;
+  transform: scale($<@scale>) translateY(-30px);
+}
 
-    @-webkit-keyframes ball-scale-multiple {
-      0% {
-        -webkit-transform: scale(0);
-        transform: scale(0);
-        opacity: 0;
-      }
-    
-      5% {
-        opacity: 1;
-      }
-    
-      100% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 0;
-      }
-    }
-    
-    @keyframes ball-scale-multiple {
-      0% {
-        -webkit-transform: scale(0);
-        transform: scale(0);
-        opacity: 0;
-      }
-    
-      5% {
-        opacity: 1;
-      }
-    
-      100% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 0;
-      }
-    }
+.ball-scale-multiple > div:nth-child(2) {
+  -webkit-animation-delay: -0.4s;
+  animation-delay: -0.4s;
+}
+
+.ball-scale-multiple > div:nth-child(3) {
+  -webkit-animation-delay: -0.2s;
+  animation-delay: -0.2s;
+}
+
+.ball-scale-multiple > div {
+  background-color: $<@color>;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  position: absolute;
+  left: -30px;
+  top: 0px;
+  opacity: 0;
+  margin: 0;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: ball-scale-multiple $<@speed>s 0s linear infinite;
+  animation: ball-scale-multiple $<@speed>s 0s linear infinite;
+}
+
+@-webkit-keyframes ball-scale-multiple {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes ball-scale-multiple {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  5% {
+    opacity: 1;
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+  }
+}
   
   `
 }

@@ -1,49 +1,49 @@
 <template>
   <div v-bind:class="'load-item ' + (isfullscreen ? 'fullscreen' : '') ">
-    <a href="javascript:void(0)" class="close-full-btn" @click="switchFullscreen(false)" v-show="isfullscreen">
+    <a href="javascript:void(0)" title="退出全屏" class="close-full-btn" @click="switchFullscreen(false)" v-show="isfullscreen">
       <icon name="close"></icon>
     </a>
     <div class="load-inner" v-html="formatHtml(dataitem)"></div>
     <div class="load-bar">
 
-      <a href="javascript:void(0)" class="pull-right">
+      <a href="javascript:void(0)" @click="exportCode"  title="下载">
         <svg class="icon">
           <use xlink:href="static/icon.svg#code-download"></use>
         </svg>
       </a>
-      <a href="javascript:void(0)" class="pull-right" @click="viewcode">
+      <a href="javascript:void(0)" @click="viewcode"  title="查看代码">
         <svg class="icon">
           <use xlink:href="static/icon.svg#code-working"></use>
         </svg>
       </a>
 
-      <a href="javascript:void(0)" @click="switchFullscreen(true)">
+      <a href="javascript:void(0)"  title="全屏" @click="switchFullscreen(true)">
         <svg class="icon">
           <use xlink:href="static/icon.svg#fullscreen"></use>
         </svg>
       </a>
 
-      <a href="javascript:void(0)" @click="showconf = !showconf">
+      <a href="javascript:void(0)"  title="调整参数" @click="showconf = !showconf">
         <svg class="icon">
           <use xlink:href="static/icon.svg#cog"></use>
         </svg>
       </a>
 
       <div class="load-config-panel" v-if="dataitem.options && showconf">
-        <div>
-          <a href="javascript:void(0)" @click="resetParam">
+        <div style="margin-bottom: 10px;">
+          <a href="javascript:void(0)"  title="重置" @click="resetParam">
             <svg class="icon">
               <use xlink:href="static/icon.svg#reset"></use>
             </svg>
           </a>
-          <a href="javascript:void(0)" @click="resetParam">
+          <a href="javascript:void(0)"  title="收起" @click="showconf = false"  style="float: right">
             <svg class="icon">
               <use xlink:href="static/icon.svg#arrow-up"></use>
             </svg>
           </a>
         </div>
         <template v-for="option in dataitem.options">
-          <component v-bind:is="'ui-' + option.ui" v-model="option.val" :params="option.params" :name="option.name"></component>
+          <component v-bind:is="'ui-' + option.ui" v-model="option.val" :params="option.params" :name="option.name" :changeVal="changeVal"></component>
         </template>
       </div>
     </div>
@@ -54,6 +54,7 @@
   import UiColor from './ui-color'
   import UiSlider from './ui-slider'
   import $ from 'jquery'
+  var FileSaver = require('file-saver')
   let originalParams = []
 
   export default {
@@ -107,6 +108,48 @@
       // 查看代码
       viewcode () {
         this.showCode(this.dataitem)
+      },
+
+      changeVal () {
+        this.showCode(this.dataitem, true)
+      },
+
+      // 导出下载
+      exportCode () {
+        let html = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Awesomes Loadings</title>
+
+    
+    <style type="text/css">
+      .container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Loading CSS 样式 */ 
+      ${this.dataitem.result.css.replace(/\n/g, '\n      ')}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Loading HTML-->
+      ${this.dataitem.html.replace(/\n/g, '\n      ')}
+    </div>
+  </body>
+</html>
+        `
+        var blob = new Blob([html], {type: "text/plain;charset=utf-8"})
+        FileSaver.saveAs(blob, "loading.html")
       }
     }
   }
@@ -147,6 +190,7 @@
     background-color: #FFF;
     box-shadow: 1px 8px 15px #EEE;
     padding: 20px;
+    padding-top: 10px;
     left: 0;
     top: 50px;
     border-top: #AAA 1px solid;

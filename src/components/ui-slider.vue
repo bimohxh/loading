@@ -10,7 +10,7 @@
 <script>
   import vueSlider from 'vue-slider-component'
   export default {
-    props: ['value', 'params', 'name'],
+    props: ['value', 'params', 'name', 'changeVal'],
     data () {
       return {
         ishow: false,
@@ -21,8 +21,12 @@
       vueSlider
     },
     watch: {
-      'slidval': function (value) {
+      slidval: function (value) {
         this.$emit('input', value)
+        this.changeVal()
+      },
+      value: function (val) {
+        this.slidval = val
       }
     }
   }

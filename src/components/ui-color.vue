@@ -12,7 +12,7 @@
 <script>
   import { Chrome } from 'vue-color'
   export default {
-    props: ['value', 'name'],
+    props: ['value', 'name', 'changeVal'],
     data () {
       return {
         ishow: false,
@@ -24,14 +24,16 @@
     components: {
       'chrome-picker': Chrome
     },
+    watch: {
+      value: function (val) {
+        this.color.hex = val
+      }
+    },
     methods: {
       updateValue (value) {
-        console.log('更新')
         this.color = value
         this.$emit('input', this.color.hex)
-      },
-      changeColor () {
-        this.$emit('input', this.color.hex)
+        this.changeVal()
       }
     },
     mounted () {

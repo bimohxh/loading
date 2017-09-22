@@ -1,8 +1,8 @@
 module.exports = {
   html: `
-    <div class="ball-scale">
-      <div></div>
-    </div>
+<div class="ball-scale">
+  <div></div>
+</div>
   `,
   options: [
     {
@@ -33,35 +33,35 @@ module.exports = {
     }
   ],
   css: `
-    .ball-scale {
-      transform: scale($<@scale>);
-    }
-    .ball-scale > div {
-      background-color: $<@color>;
-      width: 15px;
-      height: 15px;
-      border-radius: 100%;
-      margin: 2px;
-      -webkit-animation-fill-mode: both;
-      animation-fill-mode: both;
-      display: inline-block;
-      height: 60px;
-      width: 60px;
-      -webkit-animation: ball-scale $<@speed>s 0s ease-in-out infinite;
-      animation: ball-scale $<@speed>s 0s ease-in-out infinite;
-    }
+.ball-scale {
+  transform: scale($<@scale>);
+}
+.ball-scale > div {
+  background-color: $<@color>;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  -webkit-animation: ball-scale $<@speed>s 0s ease-in-out infinite;
+  animation: ball-scale $<@speed>s 0s ease-in-out infinite;
+}
 
-    @keyframes ball-scale {
-      0% {
-        -webkit-transform: scale(0);
-        transform: scale(0);
-      }
-    
-      100% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 0;
-      }
-    }
+@keyframes ball-scale {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 0;
+  }
+}
   `
 }

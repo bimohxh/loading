@@ -1,27 +1,24 @@
-# load
+# About
+A collection of customizable css loading effecs.
 
-> A Vue.js project
+## Featrue
+- customize the options
+- view source code
+- download code to a html file
+- fullscreen view
 
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
+### develop
 
-# serve with hot reload at localhost:8080
-npm run dev
+just run `npm run dev` to start your develop 
 
-# build for production with minification
-npm run build
 
-# build for production and view the bundle analyzer report
-npm run build --report
+## deploy
+install [webon](https://github.com/bimohxh/webon) and configure it to  deploy the static files to cloud
 
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
+```
+npm run deploy
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## License
+[Apache License 2.0](http://choosealicense.online/licenses/apache-2.0/)

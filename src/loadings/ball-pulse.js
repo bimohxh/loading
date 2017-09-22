@@ -1,10 +1,10 @@
 module.exports = {
   html: `
-    <div class="ball-pulse">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+<div class="ball-pulse">
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
   `,
   options: [
     {
@@ -35,53 +35,53 @@ module.exports = {
     }
   ],
   css: `
-    .ball-pulse {
-      transform: scale($<@scale>);
-    }
+.ball-pulse {
+  transform: scale($<@scale>);
+}
 
-    .ball-pulse > div:nth-child(1) {
-      -webkit-animation: ball-pulse-scale $<@speed>s -$<(@speed * 24 / 75).toFixed(2)>s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-      animation: ball-pulse-scale $<@speed>s -$<(@speed * 24 / 75).toFixed(2)>s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    }
+.ball-pulse > div:nth-child(1) {
+  -webkit-animation: ball-pulse-scale $<@speed>s -$<(@speed * 24 / 75).toFixed(2)>s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+  animation: ball-pulse-scale $<@speed>s -$<(@speed * 24 / 75).toFixed(2)>s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+}
 
-    .ball-pulse > div:nth-child(2) {
-      -webkit-animation: ball-pulse-scale $<@speed>s -$<(@speed * 12 / 75).toFixed(2)>s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-      animation: ball-pulse-scale $<@speed>s -$<(@speed * 12 / 75).toFixed(2)>s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    }
+.ball-pulse > div:nth-child(2) {
+  -webkit-animation: ball-pulse-scale $<@speed>s -$<(@speed * 12 / 75).toFixed(2)>s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+  animation: ball-pulse-scale $<@speed>s -$<(@speed * 12 / 75).toFixed(2)>s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+}
 
-    .ball-pulse > div:nth-child(3) {
-      -webkit-animation: ball-pulse-scale $<@speed>s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-      animation: ball-pulse-scale $<@speed>s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
-    }
+.ball-pulse > div:nth-child(3) {
+  -webkit-animation: ball-pulse-scale $<@speed>s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+  animation: ball-pulse-scale $<@speed>s 0s infinite cubic-bezier(0.2, 0.68, 0.18, 1.08);
+}
 
-    .ball-pulse > div {
-      background-color: $<@color>;
-      width: 15px;
-      height: 15px;
-      border-radius: 100%;
-      margin: 2px;
-      -webkit-animation-fill-mode: both;
-      animation-fill-mode: both;
-      display: inline-block;
-    }
+.ball-pulse > div {
+  background-color: $<@color>;
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  margin: 2px;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  display: inline-block;
+}
 
-    @keyframes ball-pulse-scale {
-      0% {
-      -webkit-transform: scale(1);
-      transform: scale(1);
-      opacity: 1;
-      }
-      45% {
-        -webkit-transform: scale(0.1);
-        transform: scale(0.1);
-        opacity: 0.7;
-      }
-      80% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
+@keyframes ball-pulse-scale {
+  0% {
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+  }
+  45% {
+    -webkit-transform: scale(0.1);
+    transform: scale(0.1);
+    opacity: 0.7;
+  }
+  80% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+}
   `
 }
 

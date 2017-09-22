@@ -1,34 +1,37 @@
 <template>
   <div id="app" class="container">
+    <div class="banner">
+      <h1>Awesome Loading</h1>
+      <p>可定制的 CSS 加载动画</p>
+    </div>
     <div class="load-outer">
       <loaditem v-for="item in codes" :dataitem="item" :showCode="showPanel"></loaditem>
     </div>
 
-    <div class="code-panel" v-show="codepanel.show">
-      <a href="javascript:void(0)" class="close-code-btn" @click="codepanel.show= false" >
-        <icon name="close"></icon>
-      </a>
-      <div class="inner">
-        <h4>HTML</h4>
-        <div class="area-html">
-          <textarea >{{codepanel.code.html}}</textarea>
-        </div>
-        <h4>CSS</h4>
-        <div class="area-css">
-          <textarea>{{codepanel.code.css}}</textarea>
+    <transition name="slide">
+      <div class="code-panel" v-show="codepanel.show">
+        <a href="javascript:void(0)" class="close-code-btn" @click="codepanel.show= false" >
+          <icon name="close"></icon>
+        </a>
+        <div class="inner">
+          <h4>HTML</h4>
+          <div class="area-html">
+            <textarea >{{codepanel.code.html}}</textarea>
+          </div>
+          <h4>CSS</h4>
+          <div class="area-css">
+            <textarea>{{codepanel.code.css}}</textarea>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
 <script>
   import Loaditem from './components/loaditem'
   let loadings = require('./loadings/loading')
-  // var Prism = require('prismjs')
-  // var beautify = require('js-beautify').html
-  require('prismjs/themes/prism.css')
-
+  
   loadings.forEach(load => {
     load.options.forEach(item => {
       item.oldval = item.val
@@ -37,6 +40,7 @@
       css: load.css
     }
   })
+
   export default {
     name: 'app',
     data () {
@@ -55,10 +59,18 @@
       Loaditem
     },
     methods: {
-      showPanel: function (code) {
-        this.codepanel.show = true
-        this.codepanel.code.html = code.html
-        this.codepanel.code.css = code.result.css
+      showPanel: function (code, isUpdate) {
+        console.log('====', isUpdate)
+        // 查看
+        if (!isUpdate) {
+          this.codepanel.show = true
+          this.codepanel.code.html = code.html
+          this.codepanel.code.css = code.result.css
+        } else { // 更新当前的视图
+          if (this.codepanel.code.html === code.html) {
+            this.codepanel.code.css = code.result.css
+          }
+        }
       }
     },
     mounted () {
@@ -88,6 +100,14 @@
 
   * {
     font-family: Menlo, Monaco, Consolas, "Helvetica Neue", Helvetica, "Courier New", 微软雅黑, monospace, Arial, sans-serif, 黑体;
+  }
+
+  .slide-enter-active,  .slide-leave-active {
+    transition: all .3s ease;
+  }
+
+  .slide-enter, .slide-leave-to {
+    transform: translateX(400px)
   }
 
   .container {
@@ -182,7 +202,8 @@
     background-color: #FFF;
     box-shadow: 1px 1px 15px #EEE;
     border-left: #ebebeb 1px solid;
-    opacity: 0.9
+    opacity: 0.9;
+    z-index: 50;
   }
 
   .code-panel .inner {
@@ -217,5 +238,9 @@
     position: fixed;
     top: 20px;
     right: 20px; 
+  }
+
+  .banner {
+    text-align: center
   }
 </style>
