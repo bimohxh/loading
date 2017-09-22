@@ -9,7 +9,11 @@ module.exports = [
   'pacman',
   'ball-clip-rotate-pulse',
   'ball-scale-multiple',
-  'ball-scale'
+  'ball-scale',
+  'ballupdown',
+  'notebook',
+  'loading-text',
+  'linerotate'
 ].map(item => {
   return require(`./${item}`)
 })

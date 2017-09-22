@@ -33,7 +33,7 @@
   let loadings = require('./loadings/loading')
   
   loadings.forEach(load => {
-    load.options.forEach(item => {
+    (load.options || []).forEach(item => {
       item.oldval = item.val
     })
     load.result = {
