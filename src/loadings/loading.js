@@ -1,5 +1,8 @@
 
 module.exports = [
+  'bg-rotate-loader',
+  'huan-loading',
+  'run-loading',
   'line-spin-fade',
   'square',
   'ball-pulse-sync',

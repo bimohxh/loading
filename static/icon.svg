@@ -89,4 +89,14 @@
         c81.045,0,148.287-54.134,169.401-128H378.85C360.105,353.561,311.712,388,256,388z"/>
     </g>
   </symbol>
+  <symbol id="arrow-left" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512">
+    <polygon points="352,115.4 331.3,96 160,256 331.3,416 352,396.7 201.5,256 "/>
+  </symbol>  
+  <symbol id="arrow-right" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512">
+    <polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 "/>
+  </symbol> 
+
+  <symbol id="arrow-down" width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512">
+   <polygon points="396.6,160 416,180.7 256,352 96,180.7 115.3,160 256,310.5 "/>
+  </symbol>  
 </svg>

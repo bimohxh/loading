@@ -1,37 +1,61 @@
 <template>
   <div id="app" class="container">
-    <div class="banner">
-      <h1>Awesome Loading</h1>
-      <p>可定制的 CSS 加载动画</p>
+    <div class="side-left">
+      
     </div>
-    <div class="load-outer">
-      <loaditem v-for="item in codes" :dataitem="item" :showCode="showPanel"></loaditem>
-    </div>
+    <div class="side-middle">
+      <div class="banner">
+        <h1>Awesome Loading</h1>
+        <p>可定制的 CSS 加载动画</p>
+      </div>
+      <div class="load-outer">
+        <loaditem v-for="item in paginationData()" :dataitem="item" :showCode="showPanel"></loaditem>
+      </div>
 
-    <transition name="slide">
-      <div class="code-panel" v-show="codepanel.show">
-        <a href="javascript:void(0)" class="close-code-btn" @click="codepanel.show= false" >
-          <icon name="close"></icon>
+      <div class="pagination">
+        <a href="javascript:void(0)" class="page-btn" @click="gotoPrev" v-if="pagination.page > 1" style="padding: 10px 20px">
+          <svg class="icon">
+            <use xlink:href="static/icon.svg#arrow-left"></use>
+          </svg>
         </a>
-        <div class="inner">
-          <h4>HTML</h4>
-          <div class="area-html">
-            <textarea >{{codepanel.code.html}}</textarea>
-          </div>
-          <h4>CSS</h4>
-          <div class="area-css">
-            <textarea>{{codepanel.code.css}}</textarea>
+
+        <a href="javascript:void(0)" class="page-btn" @click="gotoNext" v-if="pagination.page < pagination.pageCount">
+          <svg class="icon">
+            <use xlink:href="static/icon.svg#arrow-down"></use>
+          </svg>
+        </a>
+
+      </div>
+
+      <transition name="slide">
+        <div class="code-panel" v-show="codepanel.show">
+          <a href="javascript:void(0)" class="close-code-btn" @click="codepanel.show= false" >
+            <icon name="close"></icon>
+          </a>
+          <div class="inner">
+            <h4>HTML</h4>
+            <div class="area-html">
+              <textarea >{{codepanel.code.html}}</textarea>
+            </div>
+            <h4>CSS</h4>
+            <div class="area-css">
+              <textarea>{{codepanel.code.css}}</textarea>
+            </div>
           </div>
         </div>
-      </div>
-    </transition>
+      </transition>
+    </div>
+
+    <div class="side-right">
+     
+    </div>
   </div>
 </template>
 
 <script>
   import Loaditem from './components/loaditem'
   let loadings = require('./loadings/loading')
-  
+
   loadings.forEach(load => {
     (load.options || []).forEach(item => {
       item.oldval = item.val
@@ -41,11 +65,17 @@
     }
   })
 
+  let pageSize = 9
   export default {
     name: 'app',
     data () {
       return {
         codes: loadings,
+        pagination: {
+          pageSize: pageSize,
+          page: 1,
+          pageCount: Math.ceil(loadings.length / pageSize)
+        },
         codepanel: {
           show: false,
           code: {
@@ -60,7 +90,6 @@
     },
     methods: {
       showPanel: function (code, isUpdate) {
-        console.log('====', isUpdate)
         // 查看
         if (!isUpdate) {
           this.codepanel.show = true
@@ -71,6 +100,19 @@
             this.codepanel.code.css = code.result.css
           }
         }
+      },
+      paginationData: function () {
+        let startIndex = (this.pagination.page - 1) * this.pagination.pageSize
+        let endIndex = this.pagination.page * this.pagination.pageSize
+        return this.codes.slice(startIndex, endIndex)
+      },
+      gotoPrev: function () {
+        this.pagination.page -= 1
+        document.body.scrollTop = document.documentElement.scrollTop = 0
+      },
+      gotoNext: function () {
+        this.pagination.page += 1
+        document.body.scrollTop = document.documentElement.scrollTop = 0
       }
     },
     mounted () {
@@ -111,8 +153,45 @@
   }
 
   .container {
+    margin: 50px 0;
+    display: flex;
+  }
+
+  .side-middle {
     max-width: 1000px;
-    margin: 50px auto
+  }
+
+  .side-right, .side-left {
+    flex-grow: 1;
+    position: relative
+  }
+
+  .side-left {
+    text-align: right
+  }
+
+  .pagination {
+    text-align: center
+  }
+
+  .page-btn {
+    display: inline-block;
+    background-color: #FFF;
+    padding: 10px 50px;
+    box-shadow: 1px 1px 15px #EEE;
+  }
+
+  .side-right .page-btn {
+    left: 10px;
+  }
+
+  .page-btn svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .page-btn:link svg, .page-btn:visited svg{
+    fill: #dad5d5
   }
 
   [v-show], ['v-cloak'] {
