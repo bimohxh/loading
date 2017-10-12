@@ -3,6 +3,8 @@ module.exports = [
   'bg-rotate-loader',
   'huan-loading',
   'run-loading',
+  'flip-txt',
+  'oJLge',
   'line-spin-fade',
   'square',
   'ball-pulse-sync',
@@ -16,7 +18,9 @@ module.exports = [
   'ballupdown',
   'notebook',
   'loading-text',
-  'linerotate'
+  'linerotate',
+  'roataqx',
+  'multi-ball'
 ].map(item => {
   return require(`./${item}`)
 })

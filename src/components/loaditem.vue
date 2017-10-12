@@ -3,7 +3,7 @@
     <a href="javascript:void(0)" title="退出全屏" class="close-full-btn" @click="switchFullscreen(false)" v-show="isfullscreen">
       <icon name="close"></icon>
     </a>
-    <div class="load-inner" v-html="formatHtml(dataitem)"></div>
+    <div class="load-inner" v-html="formatHtml(dataitem)" :style="{backgroundColor: dataitem.bgcolor}"></div>
     <div class="load-bar">
 
       <a href="javascript:void(0)" @click="exportCode"  title="下载">
@@ -30,6 +30,7 @@
       </a>
 
       <div class="load-config-panel" v-if="dataitem.options && showconf">
+
         <div style="margin-bottom: 10px;">
           <a href="javascript:void(0)"  title="重置" @click="resetParam">
             <svg class="icon">
@@ -42,6 +43,7 @@
             </svg>
           </a>
         </div>
+        <component is="ui-color" v-model="dataitem.bgcolor"  name="背景色"></component>
         <template v-for="option in dataitem.options">
           <component v-bind:is="'ui-' + option.ui" v-model="option.val" :params="option.params" :name="option.name" :changeVal="changeVal"></component>
         </template>

@@ -44,8 +44,8 @@
 
 <style scoped>
   .color-btn {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
     border: #727272 4px solid;
     position: relative

@@ -65,8 +65,8 @@ module.exports = {
   border-left: 25px solid $<@color>;
   border-bottom: 25px solid $<@color>;
   border-radius: 25px;
-  -webkit-animation: rotate_pacman_half_up 0.5s 0s infinite;
-  animation: rotate_pacman_half_up 0.5s 0s infinite;
+  -webkit-animation: rotate_pacman_half_up $<(@speed -0.5)>s 0s infinite;
+  animation: rotate_pacman_half_up $<(@speed -0.5)>s 0s infinite;
   position: relative;
   left: -30px;
 }
@@ -78,8 +78,8 @@ module.exports = {
   border-left: 25px solid $<@color>;
   border-bottom: 25px solid $<@color>;
   border-radius: 25px;
-  -webkit-animation: rotate_pacman_half_down 0.5s 0s infinite;
-  animation: rotate_pacman_half_down 0.5s 0s infinite;
+  -webkit-animation: rotate_pacman_half_down $<(@speed -0.5)>s 0s infinite;
+  animation: rotate_pacman_half_down $<(@speed -0.5)>s 0s infinite;
   margin-top: -50px;
   position: relative;
   left: -30px;

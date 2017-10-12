@@ -72,6 +72,7 @@
     load.result = {
       css: load.css
     }
+    load.bgcolor = '#FFF'
   })
 
   let pageSize = 9
